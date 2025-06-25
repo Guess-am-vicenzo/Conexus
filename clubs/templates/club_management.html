@@ -1,0 +1,32 @@
+<!-- club_management.html -->
+{% extends 'base.html' %}
+
+{% block title %}Club Management{% endblock %}
+
+{% block content %}
+  <div class="container">
+    <h1 class="page-title">Manage Clubs</h1>
+
+    {% if clubs %}
+      <section class="club-list">
+        {% for club in clubs %}
+          <article class="club-card">
+            <header>
+              <h2 class="club-name">{{ club.name }}</h2>
+            </header>
+
+            {% if club.description %}
+              <p class="club-description">{{ club.description }}</p>
+            {% endif %}
+
+         
+
+        
+          </article>
+        {% endfor %}
+      </section>
+    {% else %}
+      <p class="no-clubs-msg">No clubs found.</p>
+    {% endif %}
+  </div>
+{% endblock %}

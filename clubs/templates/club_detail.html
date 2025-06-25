@@ -1,0 +1,67 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <div id="club-details-container">
+    <!-- Club Name -->
+    <h1 id="club-name">{{ club.name }}</h1>
+    
+    <!-- Club Description -->
+    <p id="club-description">{{ club.description }}</p>
+
+<h2 class="announcements-title">Announcements</h2>
+{% if announcements %}
+  <ul class="announcements-list">
+    {% for announcement in announcements %}
+      <li class="announcement-item">
+        {% if user.is_authenticated %}
+          <a href="{% url 'edit_announcement' announcement.id %}" class="announcement-title-link">
+            <h3 class="announcement-title">{{ announcement.title }}</h3>
+          </a>
+        {% else %}
+          <h3 class="announcement-title">{{ announcement.title }}</h3>
+        {% endif %}
+        <p class="announcement-body">{{ announcement.body }}</p>
+      </li>
+    {% endfor %}
+  </ul>
+{% else %}
+  <p class="no-announcements">No announcements available.</p>
+{% endif %}
+
+<a href="{% url 'create_announcement' pk=club.pk %}" class="create-announcement-link">Create Announcement</a>
+
+    <!-- Members Heading -->
+    <h2 id="members-heading">Members ({{ members.count }})</h2>
+
+  <div id="member-search-container">
+  <form method="get" id="member-search-form">
+    <input type="text" name="q" placeholder="Search members..." value="{{ query|default:'' }}">
+    <button type="submit">Search</button>
+  </form>
+</div>
+
+    {% if members %}
+      <ul id="members-list" class="member-cards-grid">
+        {% for member in members %}
+          <li class="member-card">
+            <a href="{% url 'member_detail' member.id %}" class="member-link">
+              <div class="member-avatar">
+                <!-- Placeholder avatar, replace with real image if available -->
+                <img src="https://ui-avatars.com/api/?name={{ member.first_name }}+{{ member.last_name }}&background=3498db&color=fff&rounded=true&size=64" alt="{{ member.first_name }} {{ member.last_name }}">
+              </div>
+              <div class="member-info">
+                <h3 class="member-name">{{ member.first_name }} {{ member.last_name }}</h3>
+                <p class="member-role">{{ member.role }}</p>
+              </div>
+            </a>
+          </li>
+        {% endfor %}
+      </ul>
+    {% else %}
+      <p id="no-members">No members yet.</p>
+    {% endif %}
+
+    <!-- Add New Member Button -->
+    <a href="{% url 'signup' %}" class="button" id="add-member-btn">Add New Member</a>
+  </div>
+{% endblock %}

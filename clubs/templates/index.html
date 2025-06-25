@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+  <div id="welcome-container" style="position: relative; z-index: 10;">
+    <h1 id="welcome-title">Welcome to Conexus!</h1>
+
+
+    <div id="intro-text">
+      <p>Conexus is your gateway to connecting with like-minded individuals and exploring clubs that match your interests.</p>
+    </div>
+    
+    <div id="cta-container">
+      <h3>Why Join a Club?</h3>
+      <ul id="cta-list">
+        <li><strong>Meet New People</strong> - Expand your network with like-minded individuals.</li>
+        <li><strong>Learn and Grow</strong> - Gain new knowledge through various club activities.</li>
+        <li><strong>Participate in Events</strong> - Attend exciting events and make memorable experiences.</li>
+      </ul>
+    </div>
+    
+    <div id="action-buttons">
+      <a href="clubs/" class="button">Explore Clubs</a>
+      <a href="signup/" class="button">Join a Club</a>
+    </div>
+  </div>
+
+  
+  
+{% endblock %}
+
+

@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+  <div id="clubs-container">
+    <h1 id="clubs-title">Clubs</h1>
+    <ul id="clubs-list">
+
+      {% for club in clubs %}
+        <li id="club-{{ club.pk }}">
+          <a href="{% url 'club_detail' club.pk %}" class="club-link">
+            {{ club.name }}
+          </a>
+        </li>
+      {% endfor %}
+
+    </ul>
+
+    <p id="create-club-prompt">
+      <a href="{% url 'create_club' %}" id="create-club-link">Create a new club</a>
+    </p>
+    
+  </div>
+{% endblock %}

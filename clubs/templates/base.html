@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{% block title %}{% endblock %}</title>
+  {% load static %}
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+  <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+</head>
+<body class="{% block body_class %}{% endblock %}">
+
+  <!-- Header Section with Site Name and Navigation -->
+  <header id="site-header">
+    <div id="site-name-container">
+      <a href="/" id="site-name">Conexus</a>
+    </div>
+
+    <nav id="main-nav">
+      <ul>
+        <li><a href="/" class="nav-link {% if request.path == '/' %}active{% endif %}">Home</a></li>
+        <li><a href="/clubs" class="nav-link {% if request.path == '/clubs' %}active{% endif %}">Clubs</a></li>
+
+       {% if user.is_authenticated %}
+            {% if user.is_superuser %}
+              <li><a href="{% url 'admin_dashboard' %}" class="nav-link" >Admin Dashboard</a></li>
+            {% endif %}
+            <li><a href="/logout" class="nav-link {% if request.path == '/logout' %}active{% endif %}">Logout</a></li>
+        {% else %}
+            <li><a href="/signup" class="nav-link {% if request.path == '/signup' %}active{% endif %}">Sign Up</a></li>
+            <li><a href="/login" class="nav-link {% if request.path == '/login' %}active{% endif %}">Login</a></li>
+        {% endif %}
+      </ul>
+    </nav>
+  </header>
+
+  <!-- Main Content Area -->
+  <div class="container">
+    {% block content %}
+    {% endblock %}
+  </div>
+
+  <!-- Scripts block for page-specific JS -->
+  {% block scripts %}
+  {% endblock %}
+
+</body>
+</html>

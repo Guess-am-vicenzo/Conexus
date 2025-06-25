@@ -1,0 +1,51 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <div id="create-club-container">
+    <h1 id="create-club-title">Create a New Club</h1>
+
+    <!-- Display the message dynamically -->
+    <div id="dynamic-message" class="messages" style="display: none;">
+      <div class="alert alert-success">..Club will be created after admin approval....</div>
+    </div>
+
+    <form method="post" id="create-club-form">
+      {% csrf_token %}
+      <div id="form-fields">
+        {{ form.as_p }}
+      </div>
+      <button type="submit" id="create-club-button">Create</button>
+    </form>
+  </div>
+
+  <!-- JavaScript to display message once form fields are filled -->
+  <script>
+    document.addEventListener("DOMContentLoaded", function() {
+      const form = document.getElementById('create-club-form');
+      const messageDiv = document.getElementById('dynamic-message');
+      const inputs = form.querySelectorAll('input, select, textarea');
+
+      // Function to check if all fields are filled
+      function checkFieldsFilled() {
+        let allFilled = true;
+        
+        inputs.forEach(input => {
+          if (input.value.trim() === '') {
+            allFilled = false;
+          }
+        });
+
+        if (allFilled) {
+          messageDiv.style.display = 'block';  // Show message
+        } else {
+          messageDiv.style.display = 'none';  // Hide message
+        }
+      }
+
+      // Listen for any input event on form fields
+      inputs.forEach(input => {
+        input.addEventListener('input', checkFieldsFilled);
+      });
+    });
+  </script>
+{% endblock %}

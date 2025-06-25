@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+
+{% block title %}Create Announcement{% endblock %}
+
+{% block content %}
+  <div class="create-announcement-container">
+    <h2 class="create-announcement-title">Create Announcement for {{ club.name }}</h2>
+    <form method="POST" class="create-announcement-form">
+      {% csrf_token %}
+      <div class="form-field">
+        <label for="title" class="form-label">Title:</label>
+        <input type="text" id="title" name="title" class="form-input" required>
+      </div>
+
+      <div class="form-field">
+        <label for="body" class="form-label">Announcement Body:</label><br>
+        <textarea id="body" name="body" rows="4" class="form-textarea" required></textarea>
+      </div>
+
+      <button type="submit" class="button submit-button">Post Announcement</button>
+    </form>
+
+    <a href="{% url 'club_detail' club.pk %}" class="back-to-club-link">Back to Club</a>
+  </div>
+{% endblock %}

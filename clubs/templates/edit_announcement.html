@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h2>Edit Announcement</h2>
+
+<form method="post" class="announcement-form">
+  {% csrf_token %}
+
+  <div class="form-group">
+    <label for="{{ form.title.id_for_label }}">Title</label>
+    {{ form.title }}
+    {% if form.title.errors %}
+      <div class="error">{{ form.title.errors }}</div>
+    {% endif %}
+  </div>
+
+  <div class="form-group">
+    <label for="{{ form.body.id_for_label }}">Body</label>
+    {{ form.body }}
+    {% if form.body.errors %}
+      <div class="error">{{ form.body.errors }}</div>
+    {% endif %}
+  </div>
+
+  <div class="form-buttons">
+    <button type="submit" name="save" class="btn btn-save">Save Changes</button>
+    <button type="submit" name="delete" class="btn btn-delete"
+            onclick="return confirm('Are you sure you want to delete this announcement?');">
+      Delete Announcement
+    </button>
+    <a href="{% url 'club_detail' pk=announcement.club.pk %}" class="btn btn-cancel">Cancel</a>
+  </div>
+</form>
+{% endblock %}

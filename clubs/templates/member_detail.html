@@ -1,0 +1,100 @@
+{% extends "base.html" %}
+
+{% block title %}Member Details: {{ member.first_name }} {{ member.last_name }}{% endblock %}
+
+{% block content %}
+
+<div class="member-profile-container">
+    <div class="member-card">
+
+        <!-- Header Section -->
+        <div class="member-header">
+            <h1 class="member-name">{{ member.first_name }} {{ member.last_name }}</h1>
+            <p class="member-role-badge">
+                <i class="fas fa-user-tag"></i> {{ member.role }}
+            </p>
+        </div>
+
+        <!-- Profile Info -->
+        <div class="member-content">
+                <div class="info-section">
+                <h2 class="section-title">
+
+                    <!-- Classroom -->
+                    <i class="fas fa-chalkboard-teacher"></i> Classroom
+                </h2>
+                   <div class="info-item">
+                    <span class="info-label"> <i class="fas fa-school"></i> Class:</span>
+                    <span class="info-value">{{ member.student_class}}</span>
+                </div>
+
+            <!-- Contact Section -->
+            <div class="info-section">
+                <h2 class="section-title">
+                    <i class="fas fa-envelope-open-text"></i> Contact Information
+                </h2>
+                <div class="info-item">
+                    <span class="info-label"><i class="fas fa-envelope"></i> Email:</span>
+                    <span class="info-value">{{ member.email }}</span>
+                </div>
+                {% if member.phone_number %}
+                <div class="info-item">
+                    <span class="info-label"><i class="fas fa-phone"></i> Phone:</span>
+                    <span class="info-value">{{ member.phone_number }}</span>
+                </div>
+                {% endif %}
+            </div>
+
+            <!-- Membership Section -->
+            <div class="info-section">
+                <h2 class="section-title">
+                    <i class="fas fa-calendar-check"></i> Membership Info
+                </h2>
+                {% if member.joined_date %}
+                <div class="info-item">
+                    <span class="info-label"><i class="fas fa-calendar-alt"></i> Member since:</span>
+                    <span class="info-value">{{ member.joined_date|date:"D, F j, Y" }}</span>
+                </div>
+                {% endif %}
+            </div>
+
+            <!-- Club Section -->
+            <div class="info-section">
+                <h2 class="section-title">
+                    <i class="fas fa-users"></i> Club Information
+                </h2>
+                {% if member.club %}
+                <div class="info-item">
+                    <span class="info-label"><i class="fas fa-university"></i> Club:</span>
+                    <span class="info-value">
+                        <a href="{% url 'club_detail' pk=member.club.id %}" class="club-link">
+                            {{ member.club.name }}
+                        </a>
+                    </span>
+                </div>
+                {% else %}
+                <div class="info-item no-club">
+                    <span class="info-value">Not currently in a club</span>
+                </div>
+                {% endif %}
+            </div>
+
+        </div>
+
+        <!-- Back Button -->
+        <div class="member-actions">
+            {% if member.club %}
+            <a href="{% url 'club_detail' pk=member.club.id %}" class="button">
+                <i class="fas fa-arrow-left"></i> Back to Club
+            </a>
+            {% else %}
+            <a href="{% url 'club_list' %}" class="button">
+                <i class="fas fa-arrow-left"></i> View All Clubs
+            </a>
+            {% endif %}
+        </div>
+
+    </div>
+</div>
+
+{% endblock %}

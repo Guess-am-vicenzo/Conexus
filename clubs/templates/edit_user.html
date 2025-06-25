@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+
+{% block title %}Edit User{% endblock %}
+
+{% block content %}
+  <h2>Edit User: {{ user.username }}</h2>
+
+  <form method="post" id="user-edit-form">
+    {% csrf_token %}
+
+    <div id="form-fields">
+      <!-- Username -->
+      <p>
+        <label for="id_username">Username</label>
+        <input type="text" name="username" id="id_username" 
+               value="{{ form.username.value|default_if_none:'' }}">
+        {% for error in form.username.errors %}
+          <span class="error">{{ error }}</span>
+        {% endfor %}
+      </p>
+
+      <!-- Email -->
+      <p>
+        <label for="id_email">Email</label>
+        <input type="email" name="email" id="id_email" 
+               value="{{ form.email.value|default_if_none:'' }}">
+        {% for error in form.email.errors %}
+          <span class="error">{{ error }}</span>
+        {% endfor %}
+      </p>
+
+      <!-- Password -->
+      <p>
+        <label for="id_password">Password</label>
+        <input type="password" name="password" id="id_password" autocomplete="new-password">
+        {% for error in form.password.errors %}
+          <span class="error">{{ error }}</span>
+        {% endfor %}
+        <small>Leave blank to keep the current password.</small>
+      </p>
+    </div>
+
+    <button type="submit" class="button">Save Changes</button>
+    <a href="{% url 'user_management' %}" class="button" style="background-color: #555; margin-left: 10px;">Back</a>
+  </form>
+{% endblock %}

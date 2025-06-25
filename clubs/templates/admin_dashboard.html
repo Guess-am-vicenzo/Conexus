@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+
+{% block title %}Admin Dashboard{% endblock %}
+
+{% block content %}
+  <div id="admin-dashboard-container">
+    <!-- Sidebar -->
+    <div id="sidebar">
+      <h2 id="sidebar-title">Admin Panel</h2>
+   <ul id="sidebar-links">
+    <li><a href="{% url 'admin_dashboard' %}" class="active">Dashboard</a></li>
+    <li><a href="{% url 'user_management' %}">User Management</a></li>
+    <li><a href="{% url 'club_management' %}">Club Management</a></li>
+    <li><a href="{% url 'announcement_management' %}">Announcement Management</a></li>
+    <li><a href="{% url 'logout' %}">Logout</a></li>
+</ul>
+    </div>
+
+    <!-- Main Content Area -->
+    <div id="main-content">
+      <div id="overview">
+        <h1>Welcome, Admin</h1>
+        <p>Here's a quick overview of your platform:</p>
+        <div id="overview-cards">
+          <div class="card">
+            <h3>Total Users</h3>
+            <p>{{ total_users }}</p>
+          </div>
+          <div class="card">
+            <h3>Total Clubs</h3>
+            <p>{{ total_clubs }}</p>
+          </div>
+          <div class="card">
+            <h3>Total Announcements</h3>
+            <p>{{ total_announcements }}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+{% endblock %}

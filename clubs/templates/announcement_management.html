@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+
+{% block title %}Announcement Management{% endblock %}
+
+{% block content %}
+  <div class="container">
+    <h1 class="page-title">Manage Announcements</h1>
+
+    {% if announcements %}
+      <section class="announcement-list">
+        {% for announcement in announcements %}
+          <article class="announcement-card">
+            <header>
+              <h2 class="announcement-title">{{ announcement.title }}</h2>
+            </header>
+            <p class="announcement-content">{{ announcement.content }}</p>
+
+         
+          </article>
+        {% endfor %}
+      </section>
+    {% else %}
+      <p class="no-announcements-msg">No announcements found.</p>
+    {% endif %}
+  </div>
+{% endblock %}

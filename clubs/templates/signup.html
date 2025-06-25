@@ -1,0 +1,68 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <div id="signup-container">
+    <h2 id="signup-title">Sign Up</h2>
+
+    {% if messages %}
+      <div id="messages-container">
+        {% for message in messages %}
+          <div class="alert alert-{{ message.tags }}" id="alert-{{ message.tags }}">
+            {{ message }}
+          </div>
+        {% endfor %}
+      </div>
+    {% endif %}
+
+    <form method="post" id="signup-form">
+      {% csrf_token %}
+      <div id="form-fields">
+
+        <p>
+          <label for="id_first_name">First name:</label>
+          <input type="text" name="first_name" id="id_first_name" value="{{ form.first_name.value|default:'' }}">
+          {{ form.first_name.errors }}
+        </p>
+
+        <p>
+          <label for="id_last_name">Last name:</label>
+          <input type="text" name="last_name" id="id_last_name" value="{{ form.last_name.value|default:'' }}">
+          {{ form.last_name.errors }}
+        </p>
+
+        <p>
+          <label for="id_email">Email:</label>
+          <input type="email" name="email" id="id_email" value="{{ form.email.value|default:'' }}">
+          {{ form.email.errors }}
+        </p>
+
+        <p>
+          <label for="id_phone_number">Phone number:</label>
+          <input type="text" name="phone_number" id="id_phone_number" value="{{ form.phone_number.value|default:'' }}">
+          {{ form.phone_number.errors }}
+        </p>
+
+          <p>
+         <label for="id_student_class">Class:</label>
+          <input type="text" name="student_class" id="student_class" value="{{ form.student_class.value|default:'' }}">
+          {{ form.student_class.errors }}
+            </p>
+
+
+        <p>
+          <label for="id_club">Club:</label>
+          <select name="club" id="id_club">
+            <option value="">--- Select Your Club ---</option>
+            {% for club in form.fields.club.queryset %}
+              <option value="{{ club.id }}" {% if form.club.value|stringformat:"s" == club.id|stringformat:"s" %}selected{% endif %}>{{ club.name }}</option>
+            {% endfor %}
+          </select>
+          {{ form.club.errors }}
+        </p>
+
+      </div>
+
+      <button type="submit" id="signup-button">Sign Up</button>
+    </form>
+  </div>
+{% endblock %}
